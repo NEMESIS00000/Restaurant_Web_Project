@@ -2,88 +2,89 @@
 
 {% block class %}class="sub_page"{% endblock class %}
 {% block table_status %}active{% endblock table_status %}
+
 {% block main %}
 
-<!-- book section -->
 <section class="book_section layout_padding">
   <div class="container">
-    <div class="heading_container">
-      <h2>
-        Book A Table
-      </h2>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form_container">
-          <!-- Display messages here -->
-         
 
-          <form action="{% url 'Book_Table' %}" method='POST'>{% csrf_token %}
-            <div>
-              <input type="text" class="form-control" name="user_name" required placeholder="Your Name" />
+    <!-- Centered Title -->
+    <div class="row">
+      <div class="col-12 text-center mb-5">
+        <h2 class="font-weight-bold">
+          Book A Table
+        </h2>
+      </div>
+    </div>
+
+    <!-- Centered Form -->
+    <div class="row justify-content-center">
+      <div class="col-lg-7 col-md-9">
+
+        <div class="form_container p-4 shadow rounded bg-white">
+
+          <!-- Messages -->
+          {% if messages %}
+          <div class="alert alert-info text-center">
+            {% for message in messages %}
+              <p class="mb-0">{{ message }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <form action="{% url 'Book_Table' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+              <input type="text" class="form-control form-control-lg"
+                     name="user_name" required placeholder="Your Name">
             </div>
-            <div>
-              <input type="text" class="form-control" name="phone_number" required placeholder="Phone Number" />
+
+            <div class="form-group">
+              <input type="text" class="form-control form-control-lg"
+                     name="phone_number" required placeholder="Phone Number">
             </div>
-            <div>
-              <input type="email" class="form-control" name="user_email" placeholder="Your Email" />
+
+            <div class="form-group">
+              <input type="email" class="form-control form-control-lg"
+                     name="user_email" placeholder="Your Email">
             </div>
-            <div>
-              <select class="form-control nice-select wide" required name="total_person">
+
+            <div class="form-group">
+              <select class="form-control form-control-lg"
+                      required name="total_person">
                 <option value="" disabled selected>
                   How many persons?
                 </option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                <option value="2">2 Persons</option>
+                <option value="3">3 Persons</option>
+                <option value="4">4 Persons</option>
+                <option value="5">5 Persons</option>
               </select>
             </div>
-            <div>
-              <input type="date" required name="booking_data" class="form-control">
+
+            <div class="form-group">
+              <input type="date"
+                     required
+                     name="booking_data"
+                     class="form-control form-control-lg">
             </div>
-            <div class="btn_box">
-              <button>
+
+            <div class="text-center mt-4">
+              <button type="submit"
+                      class="btn btn-primary btn-lg px-5">
                 Book Now
               </button>
             </div>
+
           </form>
+
         </div>
-      </div>
-      
-      <!-- Google Map section -->
-      <div class="col-md-6">
-        <div class="map_container">
-          <div id="googleMap" style="height: 400px; width: 100%;"></div> <!-- Ensure the map has a height and width -->
-        </div>
+
       </div>
     </div>
+
   </div>
 </section>
-<!-- end book section -->
-
-<!-- Add the Google Maps API -->
-<script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap" async defer></script>
-
-<!-- Initialize Google Map -->
-<script>
-function initMap() {
-  // Set the location of your restaurant (replace with your actual coordinates)
-  var restaurantLocation = { lat: 26.8467, lng: 80.9462 }; // Example coordinates (change these)
-
-  // Create the map centered on the restaurant
-  var map = new google.maps.Map(document.getElementById('googleMap'), {
-    zoom: 14,  // Set zoom level
-    center: restaurantLocation  // Set map's center
-  });
-
-  // Add a marker at the restaurant's location
-  var marker = new google.maps.Marker({
-    position: restaurantLocation,
-    map: map,
-    title: 'Burger Bites'  // Change this to your restaurant's name
-  });
-}
-</script>
 
 {% endblock main %}
