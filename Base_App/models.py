@@ -14,7 +14,7 @@ class Items(models.Model):
     description = models.TextField(blank=False)
     Price = models.IntegerField()
     Category = models.ForeignKey(ItemList, related_name='Name', on_delete=models.CASCADE)
-    Image = models.ImageField(upload_to='items/')
+    Image = models.CharField(max_length=100, default='images/default.jpg')  # ← changed from ImageField
 
     def __str__(self):
         return self.Item_name
@@ -26,7 +26,7 @@ class Feedback(models.Model):
     User_name = models.CharField(max_length=15)
     Description = models.TextField(blank=False)
     Rating = models.IntegerField()
-    Image = models.ImageField(upload_to='feedback/', blank=True)
+    Image = models.ImageField(upload_to='feedback/', blank=True)  # feedback selfies can stay as media
 
     def __str__(self):
         return self.User_name
